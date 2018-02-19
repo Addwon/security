@@ -21,15 +21,17 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="/" sec:authorize="hasAuthority('APPLICANT')">Applicant</a>
+                    <a class="nav-link"  sec:authorize="hasAnyAuthority('APPLICANT','ADMIN')" href="/">Applicant</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/" sec:authorize="hasAuthority('APPLICANT')">Employer</a>
+                    <a class="nav-link"  sec:authorize="hasAnyAuthority('EMPLOYER','ADMIN')" href="/">Employer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/" sec:authorize="isAnonymous()">Log out</a>
+                    <a class="nav-link" href="/" sec:authorize="isAnonymous()">Log in</a>
                 </li>
-
+                <li class="nav-item">
+                    <a th:href="@{/logout?logout}" class="nav-link js-scroll-trigger" sec:authorize="isAuthenticated()">Log Out</a>
+                </li>
                 <!--<li class="nav-item">-->
                     <!--<div sec:authorize="hasAuthority('USER')">-->
                         <!--<a class="nav-link" href="/reference" >Add Reference</a>-->
@@ -50,6 +52,11 @@
     </div>
 <!--</div>-->
 <!--<div th:fragment="footer">copyright 2018</div>-->
+<div class="alert alert-info" role="alert">
+    <div sec:authorize="isAuthenticated()">
+        Welcome, <span sec:authentication="name">Username</span>
+    </div>
+</div>
 <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
